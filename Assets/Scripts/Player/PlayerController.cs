@@ -1,22 +1,57 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] int playerNumber = 0; // Player number to differentiate between players
 
-        private PlayerMovement _playerMovement;
+        [SerializeField] PlayerMovement playerMovement;
+        /*public string controlSchemeName;
 
-        void Start()
+        private void OnEnable()
         {
-            /*if (playerNumber == 0)
-            {
-                Debug.LogError("Player number not set in PlayerInput script, Can't be 0!");
-            }*/
-            _playerMovement = GetComponent<PlayerMovement>();
+            StartCoroutine(SwitchControlSchemeNextFrame());
         }
+
+        private IEnumerator SwitchControlSchemeNextFrame()
+        {
+            yield return null; // Wait until the next frame
+            var playerInput = GetComponent<PlayerInput>();
+            if (!string.IsNullOrEmpty(controlSchemeName))
+            {
+                Debug.Log($"Assigning control scheme {controlSchemeName} to {gameObject.name}");
+                playerInput.SwitchCurrentControlScheme(controlSchemeName, Keyboard.current);
+            }
+            else
+            {
+                Debug.LogError($"Control scheme for {gameObject.name} is null or empty!");
+            }
+            playerInput.onActionTriggered += OnActionTriggered;
+        }
+
+        private void OnDisable()
+        {
+            var playerInput = GetComponent<PlayerInput>();
+            playerInput.onActionTriggered -= OnActionTriggered;
+        }
+
+        private void OnActionTriggered(InputAction.CallbackContext context)
+        {
+            if (context.performed && context.action.name == "Jump")
+            {
+                Debug.Log($"{gameObject.name} jumped!");
+                _playerMovement.Jump();
+                // Add your jump logic here
+            }
+        }*/
+        
+        /*void Awake()
+        {
+            playerMovement = GetComponent<PlayerMovement>();
+        }*/
 
         public void OnJump(InputAction.CallbackContext context)
         {
@@ -25,7 +60,7 @@ namespace Player
             {
                 Debug.Log($"{gameObject.name} jumped!");
                 // Add your jump logic here
-                _playerMovement.Jump();
+                playerMovement.Jump();
             }
         }
     }
