@@ -18,16 +18,20 @@ public class GameManager : MonoBehaviour
         PlayerInput p1 = PlayerInput.Instantiate(
             playerPrefab,
             controlScheme: "Keyboard1");
-
         InputUser.PerformPairingWithDevice(Keyboard.current, p1.user);
         p1.user.ActivateControlScheme("Keyboard1");
+        p1.name = "Player1";
+        
         // Instantiate Player 2 with "Keyboard2" control scheme
         PlayerInput p2 = PlayerInput.Instantiate(
             playerPrefab,
             controlScheme: "Keyboard2");
         p2.user.ActivateControlScheme("Keyboard2");
         InputUser.PerformPairingWithDevice(Keyboard.current, p2.user);
-        // Optionally set their starting positions
+        p2.name = "Player2";
+        
+        
+        // Set starting positions
         p1.transform.position = player1SpawnPoint.position;
         p2.transform.position = player2SpawnPoint.position;
     }
