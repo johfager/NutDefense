@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] float _speed = 10f;
-        [SerializeField] float _jumpForce = 5f;
+        [SerializeField] public float speed = 10f;
+        [SerializeField] public float jumpForce = 5f;
 
         private Rigidbody2D _rb;
         private bool _grounded;
@@ -18,7 +19,7 @@ namespace Player
         void Update()
         {
             // Automatic horizontal movement
-            transform.position += new Vector3(_speed * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
         }
 
         public void Jump()
@@ -26,7 +27,7 @@ namespace Player
             if (_grounded)
             {
                 _grounded = false;
-                _rb.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+                _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
         }
 
@@ -34,7 +35,7 @@ namespace Player
         {
             if (collision.gameObject.CompareTag("Edge"))
             {
-                _speed = -_speed;
+                speed = -speed;
             }
 
             if (collision.gameObject.CompareTag("Floor"))

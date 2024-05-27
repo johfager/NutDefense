@@ -9,6 +9,13 @@ namespace Player
     {
 
         [SerializeField] PlayerMovement playerMovement;
+        
+        
+        
+        [SerializeField] GameObject projectilePrefab;
+        [SerializeField] Transform launchPoint;
+        [SerializeField] float launchForce = 1f;
+        [SerializeField] float launchAngle = 45f;
         /*public string controlSchemeName;
 
         private void OnEnable()
@@ -58,10 +65,30 @@ namespace Player
             Debug.Log("Inside OnJump");
             if (context.performed)
             {
+                
+                //Testing Projectile Launch
+                LaunchProjectile();
+                /*
                 Debug.Log($"{gameObject.name} jumped!");
                 // Add your jump logic here
                 playerMovement.Jump();
+                */
             }
         }
+        void LaunchProjectile()
+        {
+            // Instantiate the projectile at the launch point
+            GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, launchPoint.rotation);
+
+            // Determine the launch direction based on the player's movement speed
+            float direction = playerMovement.speed > 0 ? 1f : -1f;
+
+            // Get the Projectile2D script component from the instantiated projectile
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+
+            // Initialize the projectile with the direction, force, and angle
+            projectileScript.Initialize(direction, launchForce, launchAngle);
+        }
     }
+
 }
