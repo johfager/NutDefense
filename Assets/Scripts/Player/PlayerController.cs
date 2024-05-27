@@ -7,88 +7,48 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-
         [SerializeField] PlayerMovement playerMovement;
-        
-        
-        
         [SerializeField] GameObject projectilePrefab;
         [SerializeField] Transform launchPoint;
         [SerializeField] float launchForce = 1f;
         [SerializeField] float launchAngle = 45f;
-        /*public string controlSchemeName;
 
-        private void OnEnable()
-        {
-            StartCoroutine(SwitchControlSchemeNextFrame());
-        }
-
-        private IEnumerator SwitchControlSchemeNextFrame()
-        {
-            yield return null; // Wait until the next frame
-            var playerInput = GetComponent<PlayerInput>();
-            if (!string.IsNullOrEmpty(controlSchemeName))
-            {
-                Debug.Log($"Assigning control scheme {controlSchemeName} to {gameObject.name}");
-                playerInput.SwitchCurrentControlScheme(controlSchemeName, Keyboard.current);
-            }
-            else
-            {
-                Debug.LogError($"Control scheme for {gameObject.name} is null or empty!");
-            }
-            playerInput.onActionTriggered += OnActionTriggered;
-        }
-
-        private void OnDisable()
-        {
-            var playerInput = GetComponent<PlayerInput>();
-            playerInput.onActionTriggered -= OnActionTriggered;
-        }
-
-        private void OnActionTriggered(InputAction.CallbackContext context)
-        {
-            if (context.performed && context.action.name == "Jump")
-            {
-                Debug.Log($"{gameObject.name} jumped!");
-                _playerMovement.Jump();
-                // Add your jump logic here
-            }
-        }*/
-        
-        /*void Awake()
-        {
-            playerMovement = GetComponent<PlayerMovement>();
-        }*/
+        private bool hasProjectile = true;
 
         public void OnJump(InputAction.CallbackContext context)
         {
             Debug.Log("Inside OnJump");
             if (context.performed)
             {
-                
-                //Testing Projectile Launch
-                LaunchProjectile();
-                /*
-                Debug.Log($"{gameObject.name} jumped!");
-                // Add your jump logic here
-                playerMovement.Jump();
-                */
+                if (hasProjectile)
+                {
+                    Debug.Log($"{gameObject.name} shot a projectile!");
+                    LaunchProjectile();
+                    hasProjectile = false;
+                    //Disable launch point UI until projectile is picked up again
+                    launchPoint.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else
+                {
+                    Debug.Log($"{gameObject.name} jumped!");
+                    playerMovement.Jump();
+                }
             }
         }
+
         void LaunchProjectile()
         {
             // Instantiate the projectile at the launch point
             GameObject projectile = Instantiate(projectilePrefab, launchPoint.position, launchPoint.rotation);
 
-            // Determine the launch direction based on the player's movement speed
-            float direction = playerMovement.speed > 0 ? 1f : -1f;
+            // Determine the launch direction based on the current rotation of the launch point
+            Vector2 launchDirection = launchPoint.up; // Assuming the launch point's up direction is the launch direction
 
-            // Get the Projectile2D script component from the instantiated projectile
+            // Get the Projectile script component from the instantiated projectile
             Projectile projectileScript = projectile.GetComponent<Projectile>();
 
-            // Initialize the projectile with the direction, force, and angle
-            projectileScript.Initialize(direction, launchForce, launchAngle);
+            // Initialize the projectile with the direction, force, and owner
+            projectileScript.Initialize(launchDirection, launchForce, gameObject);
         }
     }
-
 }

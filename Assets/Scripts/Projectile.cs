@@ -2,43 +2,49 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private float launchDirection;
-    private float launchForce;
-    private float launchAngle;
+    private Rigidbody2D _rb;
+    private Vector2 _launchDirection;
+    private float _launchForce;
+    private GameObject _owner; // The player who shot this projectile
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Initialize(float direction, float force, float angle)
+    public void Initialize(Vector2 launchDirection, float launchForce, GameObject owner)
     {
-        launchDirection = direction;
-        launchForce = force;
-        launchAngle = angle;
+        _launchDirection = launchDirection;
+        _launchForce = launchForce;
+        _owner = owner;
 
-        Launch();
-    }
-
-    void Launch()
-    {
-        // Calculate the launch angle in radians
-        float angleInRadians = launchAngle * Mathf.Deg2Rad;
-
-        // Adjust the launch direction based on the angle
-        Vector2 launchVector = new Vector2(
-            launchDirection * Mathf.Cos(angleInRadians),
-            Mathf.Sin(angleInRadians)
-        );
-
-        // Apply the force to the projectile
-        rb.AddForce(launchVector * launchForce, ForceMode2D.Impulse);
+        // Apply the launch force to the projectile
+        _rb.AddForce(_launchDirection * _launchForce, ForceMode2D.Impulse);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Handle collision logic here
-        //Destroy(gameObject);
+        // Check if the projectile hit another player
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject != _owner)
+        {
+            // Handle the logic for killing the player
+            Debug.Log($"{collision.gameObject.name} hit by projectile!");
+            //Destroy(collision.gameObject); // Example: destroy the player game object
+
+            // Destroy the projectile after hitting the player
+            Destroy(this.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Edge"))
+        {
+            // Reflect the velocity to simulate a bounce
+            Vector2 normal = collision.contacts[0].normal;
+            _rb.velocity = Vector2.Reflect(_rb.velocity, normal) * 0.8f; // Reduce the speed after bouncing
+            Debug.Log("TODO should bounce of the wall here");
+        }
+        else if (collision.gameObject.CompareTag("Floor"))
+        {
+            Debug.Log("TODO should get stuck in floor here jao");
+            Destroy(this.gameObject);
+        }
     }
 }
