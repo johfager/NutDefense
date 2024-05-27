@@ -12,7 +12,7 @@ public class ProjectileLaunchPointMovement : MonoBehaviour
     {
         launchPointTransform = transform;
     }
-
+/*
     void OnEnable()
     {
         // Subscribe to the onDirectionChange event of the associated PlayerMovement component
@@ -24,7 +24,7 @@ public class ProjectileLaunchPointMovement : MonoBehaviour
         // Unsubscribe from the onDirectionChange event
         player.GetComponent<Player.PlayerMovement>().onDirectionChange.RemoveListener(MoveToFront);
     }
-
+*/
     void MoveToFront(GameObject playerObject, Vector3 direction)
     {
         if (playerObject == player)

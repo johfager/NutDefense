@@ -12,7 +12,7 @@ namespace Player
         private bool _grounded;
 
         // Unity event to be invoked when the player changes direction
-        public UnityEvent<GameObject, Vector3> onDirectionChange = new UnityEvent<GameObject, Vector3>();
+        //public UnityEvent<GameObject, Vector3> onDirectionChange = new UnityEvent<GameObject, Vector3>();
 
         void Start()
         {
@@ -40,23 +40,21 @@ namespace Player
             {
                 // Change direction
                 speed = -speed;
-                
-                // Invoke the Unity event with the player GameObject as an argument
-                if(speed > 0)
-                {
-                    onDirectionChange.Invoke(gameObject, Vector3.right);
-                }
-                else
-                {
-                    onDirectionChange.Invoke(gameObject, Vector3.left);
-                }
- 
+                Flip();
+
             }
 
             if (collision.gameObject.CompareTag("Floor"))
             {
                 _grounded = true;
             }
+        }
+
+        void Flip()
+        {
+            Vector3 currentScale = transform.localScale;
+            currentScale.x *= -1;
+            transform.localScale = currentScale;
         }
     }
 }
