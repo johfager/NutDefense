@@ -45,15 +45,20 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ProjectileLogic\Projectile.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\ProjectileLogic\ProjectileLaunchPointMovement.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\ProjectileLogic\ProjectilePickUp.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Settings" />
      <Folder Include="Assets\InputActions" />
      <Folder Include="Assets\Scripts" />
+     <Folder Include="Assets\Materials" />
      <Folder Include="Assets\Settings\Scenes" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\Scripts\ProjectileLogic" />
      <Folder Include="Assets\Prefabs" />
      <Folder Include="Assets\Scripts\Player" />
      <Reference Include="UnityEngine">

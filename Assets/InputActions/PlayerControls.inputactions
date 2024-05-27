@@ -6,7 +6,7 @@
             "id": "5670589c-bf3c-4312-a293-44293cc0a0ed",
             "actions": [
                 {
-                    "name": "Jump",
+                    "name": "Action",
                     "type": "Button",
                     "id": "0da83823-c95f-4272-b652-2d5101112052",
                     "expectedControlType": "Button",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard1",
-                    "action": "Jump",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -34,7 +34,7 @@
             "id": "74b9cd24-742c-4e61-828a-8c87b25040d1",
             "actions": [
                 {
-                    "name": "Jump",
+                    "name": "Action",
                     "type": "Button",
                     "id": "0357320e-da72-4642-b272-aa91eb699368",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard2",
-                    "action": "Jump",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -62,7 +62,7 @@
             "id": "ac119752-604f-46d7-9210-05136369ecbb",
             "actions": [
                 {
-                    "name": "Jump",
+                    "name": "Action",
                     "type": "Button",
                     "id": "7e754ce8-18c9-45ce-ba83-28b8fe0d03aa",
                     "expectedControlType": "Button",
@@ -79,7 +79,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard1",
-                    "action": "Jump",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -90,7 +90,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard2",
-                    "action": "Jump",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
