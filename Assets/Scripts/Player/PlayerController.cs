@@ -15,7 +15,12 @@ namespace Player
 
         private bool hasProjectile = true;
 
-        public void OnJump(InputAction.CallbackContext context)
+        public bool HasProjectile() //Getter
+        {
+            return hasProjectile; 
+        }
+
+        public void OnAction(InputAction.CallbackContext context)
         {
             Debug.Log("Inside OnJump");
             if (context.performed)
@@ -49,6 +54,11 @@ namespace Player
 
             // Initialize the projectile with the direction, force, and owner
             projectileScript.Initialize(launchDirection, launchForce, gameObject);
+        }
+        public void PickupProjectile()
+        {
+            hasProjectile = true;
+            launchPoint.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

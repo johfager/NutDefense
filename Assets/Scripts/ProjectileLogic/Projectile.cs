@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     private Vector2 _launchDirection;
     private float _launchForce;
     private GameObject _owner; // The player who shot this projectile
+    [SerializeField] private GameObject pickupPrefab;
 
     void Awake()
     {
@@ -43,7 +44,11 @@ public class Projectile : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Floor"))
         {
-            Debug.Log("TODO should get stuck in floor here jao");
+            Debug.Log("Projectile hit the floor");
+            // Instantiate the pickup at the contact point
+            Vector2 contactPoint = collision.contacts[0].point;
+            Instantiate(pickupPrefab, contactPoint, Quaternion.identity);
+            
             Destroy(this.gameObject);
         }
     }
